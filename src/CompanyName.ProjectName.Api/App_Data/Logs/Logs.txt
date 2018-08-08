@@ -1,7 +1,0 @@
-FATAL 2018-08-08 15:41:32,957 [1    ] soft.AspNetCore.Hosting.Internal.WebHost - Application startup exception
-System.InvalidOperationException: Unable to resolve service for type 'Castle.Core.Logging.ILogger' while attempting to activate 'CompanyName.ProjectName.Api.Middlewares.RequestLogMiddleware'.
-   at Microsoft.Extensions.Internal.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
-   at Microsoft.Extensions.Internal.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
-   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass4_0.<UseMiddleware>b__0(RequestDelegate next)
-   at Microsoft.AspNetCore.Builder.Internal.ApplicationBuilder.Build()
-   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()

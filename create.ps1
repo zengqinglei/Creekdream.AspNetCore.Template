@@ -43,4 +43,5 @@ foreach ($sourceFile in $sourceFiles)
 		Write-Host ""
 	}
 }
+del create.ps1
 pause

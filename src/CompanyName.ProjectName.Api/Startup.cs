@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
@@ -39,7 +40,6 @@ namespace CompanyName.ProjectName.Api
                     options.Filters.Add(typeof(CustomExceptionFilter));
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             services.AddDbContext<DbContext, ProjectNameDbContext>(
                 options =>
                 {
@@ -47,28 +47,15 @@ namespace CompanyName.ProjectName.Api
                         _configuration.GetConnectionString("Default"),
                         option => option.UseRowNumberForPaging());
                 });
-
             services.AddSwaggerGen(
                 options =>
                 {
                     options.SwaggerDoc("v1", new Info { Version = "v1", Title = "ProjectName API" });
-
                     var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                     var currentNamespace = typeof(ProjectNameApplicationModule).Namespace;
-                    var xmlFiles = new[]
-                    {
-                        string.Format("{0}/{1}.Application.xml", baseDirectory, currentNamespace),
-                        string.Format("{0}/{1}.Api.xml", baseDirectory, currentNamespace)
-                    };
-                    foreach (var xmlFile in xmlFiles)
-                    {
-                        if (File.Exists(xmlFile))
-                        {
-                            options.IncludeXmlComments(xmlFile);
-                        }
-                    }
+                    options.IncludeXmlComments(Path.Combine(baseDirectory, $"{currentNamespace}.Application.xml"));
+                    options.IncludeXmlComments(Path.Combine(baseDirectory, $"{currentNamespace}.Api.xml"));
                 });
-
             services.AddAutoMapper();
 
             return services.AddZql<AutofacIocRegister>(
@@ -81,24 +68,22 @@ namespace CompanyName.ProjectName.Api
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddLog4Net();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
-            app.UseCustomRewriter();
+            app.UseRequestLog();
             app.UseStaticFiles();
-
             app.UseSwagger();
             app.UseSwaggerUI(
                 c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "简单示例项目API");
                 });
-
             app.UseMvc();
         }
     }

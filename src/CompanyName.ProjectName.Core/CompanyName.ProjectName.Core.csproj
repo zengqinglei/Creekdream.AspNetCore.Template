@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Zql.AutoMapper" Version="0.1.0" />
     <PackageReference Include="Zql.Core" Version="0.1.0" />
   </ItemGroup>
 

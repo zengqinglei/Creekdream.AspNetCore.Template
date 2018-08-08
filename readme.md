@@ -1,3 +1,14 @@
-### 参考文献
-DDD架构实践：https://tech.meituan.com/DDD%20in%20practice.html
-DDD实战进阶：https://www.cnblogs.com/malaoko/p/9131868.html
+# CompanyName.ProjectName
+Please fill in the project description here.
+
+## Change Log
+
+### v{version} {date}
+**Features**
+*  the features you develop
+
+**Enhancements**
+*  enhanced feature description
+
+**Bug Fixs**
+*  the bug you fixed

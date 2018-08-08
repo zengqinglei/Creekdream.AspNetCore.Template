@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>CompanyName.ProjectName</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Zql.AutoMapper" Version="0.1.0" />
+    <PackageReference Include="Zql.Core" Version="0.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CompanyName.ProjectName.Utility\CompanyName.ProjectName.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

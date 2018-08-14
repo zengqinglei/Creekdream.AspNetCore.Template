@@ -16,11 +16,18 @@ namespace CompanyName.ProjectName.Exceptions
         /// </summary>
         [JsonProperty]
         public string Id { get; set; }
+
         /// <summary>
         /// 辅助状态码
         /// </summary>
         [JsonProperty]
         public ErrorCode Code { get; set; }
+
+        /// <summary>
+        /// 异常消息
+        /// </summary>
+        [JsonProperty]
+        public override string Message => base.Message;
 
         /// <summary>
         /// 模型验证错误信息

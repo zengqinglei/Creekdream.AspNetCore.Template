@@ -1,6 +1,7 @@
 ﻿using CompanyName.ProjectName.Api.Filters;
 using CompanyName.ProjectName.Api.Middlewares;
 using CompanyName.ProjectName.EntityFrameworkCore;
+using CompanyName.ProjectName.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
+using System.Linq;
 using Zql.AspNetCore;
 using Zql.AutoMapper;
 using Zql.Dependency.Autofac;
@@ -47,6 +49,24 @@ namespace CompanyName.ProjectName.Api
                         _configuration.GetConnectionString("Default"),
                         option => option.UseRowNumberForPaging());
                 });
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory =
+                    actionContext =>
+                    {
+                        var userFriendlyException = new UserFriendlyException(
+                            ErrorCode.UnprocessableEntity,
+                            "参数输入不正确");
+                        actionContext.ModelState
+                            .Where(e => e.Value.Errors.Count > 0).ToList()
+                            .ForEach(
+                                e =>
+                                {
+                                    userFriendlyException.Errors.Add(e.Key, e.Value.Errors.Select(v => v.ErrorMessage));
+                                });
+                        throw userFriendlyException;
+                    };
+            });
             services.AddSwaggerGen(
                 options =>
                 {

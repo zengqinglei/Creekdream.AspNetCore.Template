@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
-    <PackageReference Include="Zql.Orm.EntityFrameworkCore" Version="0.1.0" />
+    <PackageReference Include="Zql.Orm.EntityFrameworkCore" Version="0.1.1" />
   </ItemGroup>
 
   <ItemGroup>

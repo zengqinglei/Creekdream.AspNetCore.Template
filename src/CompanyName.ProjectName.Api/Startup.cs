@@ -2,6 +2,11 @@
 using CompanyName.ProjectName.Api.Middlewares;
 using CompanyName.ProjectName.EntityFrameworkCore;
 using CompanyName.ProjectName.Exceptions;
+using CompanyName.ProjectName.Migrations;
+using Creekdream.AspNetCore;
+using Creekdream.Dependency;
+using Creekdream.Mapping;
+using Creekdream.Orm;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +18,6 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Linq;
-using Zql.AspNetCore;
-using Zql.AutoMapper;
-using Zql.Dependency.Autofac;
 
 namespace CompanyName.ProjectName.Api
 {
@@ -72,16 +74,19 @@ namespace CompanyName.ProjectName.Api
                 {
                     options.SwaggerDoc("v1", new Info { Version = "v1", Title = "ProjectName API" });
                     var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    var currentNamespace = typeof(ProjectNameApplicationModule).Namespace;
-                    options.IncludeXmlComments(Path.Combine(baseDirectory, $"{currentNamespace}.Application.xml"));
-                    options.IncludeXmlComments(Path.Combine(baseDirectory, $"{currentNamespace}.Api.xml"));
+                    options.IncludeXmlComments(Path.Combine(baseDirectory, "CompanyName.ProjectName.Application.xml"));
+                    options.IncludeXmlComments(Path.Combine(baseDirectory, "CompanyName.ProjectName.Api.xml"));
                 });
-            services.AddAutoMapper();
 
-            return services.AddZql<AutofacIocRegister>(
-                config =>
+            return services.AddCreekdream(
+                options =>
                 {
-
+                    options.UseAutofac();
+                    options.UseEfCore();
+                    options.UseAutoMapper();
+                    options.AddProjectNameCore();
+                    options.AddProjectNameEfCore();
+                    options.AddProjectNameApplication();
                 });
         }
 
@@ -90,6 +95,8 @@ namespace CompanyName.ProjectName.Api
         /// </summary>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            SeedData.Initialize(app.ApplicationServices).Wait();
+
             loggerFactory.AddLog4Net();
             if (env.IsDevelopment())
             {

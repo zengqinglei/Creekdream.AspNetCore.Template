@@ -2,7 +2,8 @@
 using CompanyName.ProjectName.Books;
 using CompanyName.ProjectName.Books.Dto;
 using System.Threading.Tasks;
-using Zql.Application.Service.Dto;
+using Creekdream.Application.Service.Dto;
+using System;
 
 namespace CompanyName.ProjectName.Api.Controllers
 {
@@ -13,8 +14,7 @@ namespace CompanyName.ProjectName.Api.Controllers
     {
         private readonly IBookService _bookService;
 
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         public BooksController(IBookService bookService)
         {
             _bookService = bookService;
@@ -24,7 +24,7 @@ namespace CompanyName.ProjectName.Api.Controllers
         /// 根据Id获取书信息 
         /// </summary>
         [HttpGet("{id}")]
-        public async Task<GetBookOutput> Get(int id)
+        public async Task<GetBookOutput> Get(Guid id)
         {
             return await _bookService.Get(id);
         }
@@ -50,8 +50,8 @@ namespace CompanyName.ProjectName.Api.Controllers
         /// <summary>
         /// 修改书信息
         /// </summary>
-        [HttpPut]
-        public async Task<GetBookOutput> Put([FromQuery]int id, [FromBody]UpdateBookInput input)
+        [HttpPut("{id}")]
+        public async Task<GetBookOutput> Put([FromQuery]Guid id, [FromBody]UpdateBookInput input)
         {
             return await _bookService.Update(id, input);
         }
@@ -60,7 +60,7 @@ namespace CompanyName.ProjectName.Api.Controllers
         /// 删除书信息
         /// </summary>
         [HttpDelete]
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             await _bookService.Delete(id);
         }

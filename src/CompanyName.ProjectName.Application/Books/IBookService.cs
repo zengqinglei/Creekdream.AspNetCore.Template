@@ -1,7 +1,8 @@
 ﻿using CompanyName.ProjectName.Books.Dto;
+using Creekdream.Application.Service;
+using Creekdream.Application.Service.Dto;
+using System;
 using System.Threading.Tasks;
-using Zql.Application.Service;
-using Zql.Application.Service.Dto;
 
 namespace CompanyName.ProjectName.Books
 {
@@ -13,7 +14,7 @@ namespace CompanyName.ProjectName.Books
         /// <summary>
         /// 获取书信息
         /// </summary>
-        Task<GetBookOutput> Get(int id);
+        Task<GetBookOutput> Get(Guid id);
 
         /// <summary>
         /// 获取书信息
@@ -28,11 +29,11 @@ namespace CompanyName.ProjectName.Books
         /// <summary>
         /// 修改书信息
         /// </summary>
-        Task<GetBookOutput> Update(int id, UpdateBookInput input);
+        Task<GetBookOutput> Update(Guid id, UpdateBookInput input);
 
         /// <summary>
         /// 删除书信息
         /// </summary>
-        Task Delete(int id);
+        Task Delete(Guid id);
     }
 }

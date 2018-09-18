@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Zql.Core" Version="0.1.0" />
+    <PackageReference Include="Creekdream.Core" Version="0.2.0" />
   </ItemGroup>
 
   <ItemGroup>

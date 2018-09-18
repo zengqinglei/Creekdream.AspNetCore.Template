@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Creekdream.AspNetCore" Version="0.2.0" />
+    <PackageReference Include="Creekdream.Dependency.Autofac" Version="0.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="2.2.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.2.0" />
-    <PackageReference Include="Zql.AspNetCore" Version="0.1.0" />
-    <PackageReference Include="Zql.Dependency.Autofac" Version="0.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="2.2.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

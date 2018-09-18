@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Creekdream.Domain.Entities;
+using Creekdream.Domain.Entities.Auditing;
+using System;
 using System.ComponentModel.DataAnnotations;
-using Zql.Domain.Entities;
-using Zql.Domain.Entities.Auditing;
 
 namespace CompanyName.ProjectName.Books
 {
     /// <summary>
     /// 书信息
     /// </summary>
-    public class Book : Entity, IHasCreationTime
+    public class Book : Entity<Guid>, IHasCreationTime
     {
         public const int MaxNameLength = 50;
 
@@ -23,10 +23,5 @@ namespace CompanyName.ProjectName.Books
         /// 创建时间
         /// </summary>
         public virtual DateTime CreationTime { get; set; }
-
-        public Book()
-        {
-            CreationTime = DateTime.Now;
-        }
     }
 }

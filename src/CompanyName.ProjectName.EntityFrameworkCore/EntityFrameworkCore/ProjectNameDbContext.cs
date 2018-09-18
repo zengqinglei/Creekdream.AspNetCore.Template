@@ -1,6 +1,6 @@
 ﻿using CompanyName.ProjectName.Books;
 using Microsoft.EntityFrameworkCore;
-using Zql.Orm.EntityFrameworkCore;
+using Creekdream.Orm.EntityFrameworkCore;
 
 namespace CompanyName.ProjectName.EntityFrameworkCore
 {
@@ -16,7 +16,7 @@ namespace CompanyName.ProjectName.EntityFrameworkCore
         }
 
         /// <summary>
-        /// 书信息数据集合
+        /// Books
         /// </summary>
         public DbSet<Book> Books { get; set; }
     }

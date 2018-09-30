@@ -1,5 +1,6 @@
 ﻿using CompanyName.ProjectName.Books;
 using CompanyName.ProjectName.EntityFrameworkCore;
+using Creekdream.Orm.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,7 +18,7 @@ namespace CompanyName.ProjectName.Migrations
         {
             using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var context = scope.ServiceProvider.GetService<DbContext>() as ProjectNameDbContext;
+                var context = scope.ServiceProvider.GetService<DbContextBase>() as ProjectNameDbContext;
                 context.Database.Migrate();
 
                 if (await context.Books.CountAsync() < 100)

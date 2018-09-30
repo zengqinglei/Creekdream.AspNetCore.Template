@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Creekdream.AspNetCore" Version="0.2.0" />
-    <PackageReference Include="Creekdream.Dependency.Autofac" Version="0.2.0" />
+    <PackageReference Include="Creekdream.AspNetCore" Version="0.2.2" />
+    <PackageReference Include="Creekdream.Dependency.Autofac" Version="0.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="2.2.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />

@@ -7,6 +7,7 @@ using Creekdream.AspNetCore;
 using Creekdream.Dependency;
 using Creekdream.Mapping;
 using Creekdream.Orm;
+using Creekdream.Orm.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,7 @@ namespace CompanyName.ProjectName.Api
                     options.Filters.Add(typeof(CustomExceptionFilter));
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<DbContext, ProjectNameDbContext>(
+            services.AddDbContext<DbContextBase, ProjectNameDbContext>(
                 options =>
                 {
                     options.UseSqlServer(
@@ -83,7 +84,6 @@ namespace CompanyName.ProjectName.Api
                 {
                     options.UseAutofac();
                     options.UseEfCore();
-                    options.UseAutoMapper();
                     options.AddProjectNameCore();
                     options.AddProjectNameEfCore();
                     options.AddProjectNameApplication();
@@ -95,6 +95,12 @@ namespace CompanyName.ProjectName.Api
         /// </summary>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseCreekdream(
+                options =>
+                {
+                    options.UseAutoMapper();
+                });
+
             SeedData.Initialize(app.ApplicationServices).Wait();
 
             loggerFactory.AddLog4Net();

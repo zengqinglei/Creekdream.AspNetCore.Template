@@ -7,23 +7,19 @@ using System.Text;
 namespace CompanyName.ProjectName.Api.Filters
 {
     /// <summary>
-    ///     自定义异常过滤器
+    /// 自定义异常过滤器
     /// </summary>
     public class CustomExceptionFilter : ExceptionFilterAttribute
     {
         private readonly ILogger _logger;
 
-        /// <summary>
-        ///     构造函数
-        /// </summary>
+        /// <inheritdoc />
         public CustomExceptionFilter(ILogger<CustomExceptionFilter> logger)
         {
             _logger = logger;
         }
 
-        /// <summary>
-        ///     异常处理
-        /// </summary>
+        /// <inheritdoc />
         public override void OnException(ExceptionContext context)
         {
             var exception = context.Exception;

@@ -82,7 +82,7 @@ namespace CompanyName.ProjectName.Api
             return services.AddCreekdream(
                 options =>
                 {
-                    options.UseAutofac();
+                    options.UseWindsor();
                     options.UseEfCore();
                     options.AddProjectNameCore();
                     options.AddProjectNameEfCore();
@@ -102,8 +102,7 @@ namespace CompanyName.ProjectName.Api
                 });
 
             SeedData.Initialize(app.ApplicationServices).Wait();
-
-            loggerFactory.AddLog4Net();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

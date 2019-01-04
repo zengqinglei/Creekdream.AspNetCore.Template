@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 namespace CompanyName.ProjectName.Exceptions
 {
@@ -53,6 +54,18 @@ namespace CompanyName.ProjectName.Exceptions
             Id = Guid.NewGuid().ToString();
             Code = code;
             Errors = errors ?? new Dictionary<string, IEnumerable<string>>();
+        }
+
+        public override string ToString()
+        {
+            var error = new StringBuilder();
+            if (Errors != null)
+            {
+                error.AppendFormat("ModelError: {0}", JsonConvert.SerializeObject(Errors));
+                error.AppendLine();
+            }
+            error.Append(base.ToString());
+            return error.ToString();
         }
     }
 }

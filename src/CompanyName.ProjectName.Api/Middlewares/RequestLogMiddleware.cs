@@ -7,7 +7,6 @@ using System;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.Internal;
 using System.Text;
-using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 
 namespace CompanyName.ProjectName.Api.Middlewares
@@ -64,46 +63,13 @@ namespace CompanyName.ProjectName.Api.Middlewares
             await _next(context);
             stopwatch.Stop();
 
-            _logger.LogInformation($"[request]" +
-                $" {GetIsometricString(context.Connection.RemoteIpAddress.ToString(), 25)}" +
-                $" {GetIsometricString(stopwatch.ElapsedMilliseconds.ToString(), 6, rightPlaceholder: false)} ms" +
-                $" {GetIsometricString(context.Request.Method, 7, rightPlaceholder: false)}" +
-                $" {GetIsometricString(context.Response.StatusCode.ToString(), 3, rightPlaceholder: false)}" +
-                $" {UriHelper.GetDisplayUrl(context.Request)}");
-        }
-
-        /// <summary> 
-        /// 获取等长文本(中文2字节，英文1字节)
-        /// </summary>
-        private string GetIsometricString(string str, int maxLength, bool rightPlaceholder = true)
-        {
-            int GetContentLength(string content)
-            {
-                return Regex.Replace(content, "[\u4e00-\u9fa5]", "zz", RegexOptions.IgnoreCase).Length;
-            }
-            var temp = str;
-            var contentLength = GetContentLength(temp);
-            if (contentLength <= maxLength)
-            {
-                var placeholder = new string(' ', maxLength - contentLength);
-                if (rightPlaceholder)
-                {
-                    return str + placeholder;
-                }
-                else
-                {
-                    return placeholder + str;
-                }
-            }
-            for (int i = temp.Length; i >= 0; i--)
-            {
-                temp = temp.Substring(0, i);
-                if (GetContentLength(temp) <= maxLength - 3)
-                {
-                    return temp + "...";
-                }
-            }
-            return "...";
+            _logger.LogInformation(
+                "[request] {ipAddress} {duration} {method} {statusCode} {requestUrl}",
+                context.Connection.RemoteIpAddress.ToString(),
+                $"{stopwatch.ElapsedMilliseconds.ToString()} ms",
+                context.Request.Method,
+                context.Response.StatusCode.ToString(),
+                UriHelper.GetDisplayUrl(context.Request));
         }
     }
 

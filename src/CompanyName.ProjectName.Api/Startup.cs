@@ -44,7 +44,7 @@ namespace CompanyName.ProjectName.Api
                 {
                     options.Filters.Add(typeof(CustomExceptionFilter));
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<DbContextBase, ProjectNameDbContext>(
                 options =>
                 {

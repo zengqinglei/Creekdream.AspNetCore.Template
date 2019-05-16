@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Creekdream.Mapping.AutoMapper" Version="0.2.6" />
+    <PackageReference Include="Creekdream.Mapping.AutoMapper" Version="0.3.0" />
   </ItemGroup>
 
   <ItemGroup>

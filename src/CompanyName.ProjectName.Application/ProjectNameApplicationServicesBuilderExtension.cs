@@ -1,4 +1,5 @@
 ﻿using Creekdream;
+using Creekdream.Dependency;
 
 namespace CompanyName.ProjectName
 {
@@ -12,7 +13,7 @@ namespace CompanyName.ProjectName
         /// </summary>
         public static ServicesBuilderOptions AddProjectNameApplication(this ServicesBuilderOptions builder)
         {
-            builder.IocRegister.RegisterAssemblyByBasicInterface(typeof(ProjectNameApplicationServicesBuilderExtension).Assembly);
+            builder.Services.RegisterAssemblyByBasicInterface(typeof(ProjectNameApplicationServicesBuilderExtension).Assembly);
             return builder;
         }
     }

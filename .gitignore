@@ -262,3 +262,10 @@ __pycache__/
 
 # Logs
 Logs/
+
+# Custom ignore
+src/CompanyName.ProjectName.Api/appsettings.debug.json
+src/CompanyName.ProjectName.Api/web.config
+src/CompanyName.ProjectName.Api/web.debug.config
+src/CompanyName.ProjectName.Api/Properties/PublishProfiles/Debug.pubxml
+src/CompanyName.ProjectName.Api/nlog.config

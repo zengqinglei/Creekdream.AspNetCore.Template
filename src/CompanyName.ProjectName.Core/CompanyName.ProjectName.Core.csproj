@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Creekdream.Core" Version="0.3.0" />
+    <PackageReference Include="Creekdream.Core" Version="0.5.0-preview2" />
   </ItemGroup>
 
   <ItemGroup>

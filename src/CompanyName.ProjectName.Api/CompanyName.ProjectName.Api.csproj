@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Creekdream.AspNetCore" Version="0.3.0" />
-    <PackageReference Include="Creekdream.Dependency.Windsor" Version="0.3.0" />
+    <PackageReference Include="Creekdream.AspNetCore" Version="0.5.0-preview2" />
+    <PackageReference Include="Creekdream.Dependency.Windsor" Version="0.5.0-preview2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.8.2" />

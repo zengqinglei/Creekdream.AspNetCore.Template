@@ -6,10 +6,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
 using Creekdream.Application.Service;
 using Creekdream.Domain.Repositories;
-using Creekdream.Mapping;
 using Creekdream.Application.Service.Dto;
 using Creekdream.Orm.EntityFrameworkCore;
 using System;
+using AutoMapper;
 
 namespace CompanyName.ProjectName.Books
 {
@@ -17,18 +17,22 @@ namespace CompanyName.ProjectName.Books
     public class BookService : ApplicationService, IBookService
     {
         private readonly IRepository<Book, Guid> _bookRepository;
+        private readonly IMapper _mapper;
 
         /// <inheritdoc />
-        public BookService(IRepository<Book, Guid> bookRepository)
+        public BookService(
+            IRepository<Book, Guid> bookRepository,
+            IMapper mapper)
         {
             _bookRepository = bookRepository;
+            _mapper = mapper;
         }
 
         /// <inheritdoc />
         public async Task<GetBookOutput> Get(Guid id)
         {
             var book = await _bookRepository.GetAsync(id);
-            return book.MapTo<GetBookOutput>();
+            return _mapper.Map<GetBookOutput>(book);
         }
 
         /// <inheritdoc />
@@ -48,25 +52,25 @@ namespace CompanyName.ProjectName.Books
             return new PagedResultOutput<GetBookOutput>()
             {
                 TotalCount = totalCount,
-                Items = books.MapTo<List<GetBookOutput>>()
+                Items = _mapper.Map<List<GetBookOutput>>(books)
             };
         }
 
         /// <inheritdoc />
-        public async Task<GetBookOutput> Add(AddBookInput input)
+        public async Task<GetBookOutput> Create(CreateBookInput input)
         {
-            var book = input.MapTo<Book>();
+            var book = _mapper.Map<Book>(input);
             book = await _bookRepository.InsertAsync(book);
-            return book.MapTo<GetBookOutput>();
+            return _mapper.Map<GetBookOutput>(book);
         }
 
         /// <inheritdoc />
         public async Task<GetBookOutput> Update(Guid id, UpdateBookInput input)
         {
             var book = await _bookRepository.GetAsync(id);
-            input.MapTo(book);
+            _mapper.Map(input, book);
             book = await _bookRepository.UpdateAsync(book);
-            return book.MapTo<GetBookOutput>();
+            return _mapper.Map<GetBookOutput>(book);
         }
 
         /// <inheritdoc />

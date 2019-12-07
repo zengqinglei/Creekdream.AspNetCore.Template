@@ -1,4 +1,6 @@
-﻿namespace CompanyName.ProjectName.Books.Dto
+﻿using System;
+
+namespace CompanyName.ProjectName.Books.Dto
 {
     /// <summary>
     /// 书输出信息
@@ -8,7 +10,7 @@
         /// <summary>
         /// 书唯一Id
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// 书名

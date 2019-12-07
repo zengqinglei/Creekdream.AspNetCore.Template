@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using NLog.Web;
+using Creekdream.Dependency;
 
 namespace CompanyName.ProjectName.Api
 {
@@ -10,13 +11,17 @@ namespace CompanyName.ProjectName.Api
         /// <inheritdoc />
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         /// <inheritdoc />
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
+                .UseServiceProviderFactory(context => context.UseAutofac())
                 .UseNLog();
     }
 }

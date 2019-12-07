@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System;
 using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Http.Internal;
 using System.Text;
 using Microsoft.Extensions.Logging;
 
@@ -32,7 +31,7 @@ namespace CompanyName.ProjectName.Api.Middlewares
         private async Task<string> FormatRequest(HttpRequest request)
         {
             var body = request.Body;
-            request.EnableRewind();
+            request.EnableBuffering();
 
             var buffer = new byte[Convert.ToInt32(request.ContentLength)];
             await request.Body.ReadAsync(buffer, 0, buffer.Length);

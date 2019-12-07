@@ -1,5 +1,7 @@
 ﻿using Creekdream;
 using Creekdream.Dependency;
+using AutoMapper;
+using CompanyName.ProjectName.MapperProfiles;
 
 namespace CompanyName.ProjectName
 {
@@ -13,6 +15,7 @@ namespace CompanyName.ProjectName
         /// </summary>
         public static ServicesBuilderOptions AddProjectNameApplication(this ServicesBuilderOptions builder)
         {
+            builder.Services.AddAutoMapper(typeof(BookProfile));
             builder.Services.RegisterAssemblyByBasicInterface(typeof(ProjectNameApplicationServicesBuilderExtension).Assembly);
             return builder;
         }

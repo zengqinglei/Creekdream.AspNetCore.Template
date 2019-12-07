@@ -5,7 +5,7 @@ namespace CompanyName.ProjectName.Books.Dto
     /// <summary>
     /// 新增书信息
     /// </summary>
-    public class AddBookInput
+    public class CreateBookInput
     {
         /// <summary>
         /// 书名
